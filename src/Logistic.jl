@@ -2,7 +2,7 @@ module Logistic
 
 using Distributions
 
-""" Logistic map parameters."""
+""" Logistic map parameters. """
 type LogisticMapParams
     μXdist::Distributions.Distribution
     μYdist::Distributions.Distribution
@@ -20,7 +20,10 @@ type LogisticMapParams
     seed::Any
 end
 
-""" Logistic map object. Holds a realization of the logistic map, given by the `logistic_map()` function. `X` and `Y` are time series of trajectories, `params` holds the information used to generate the trajectiories, and `datestamp` is the time the realization was generated."""
+""" Logistic map object. Holds a realization of the logistic map, given by the
+`logistic_map()` function. `X` and `Y` are time series of trajectories, `params` holds the
+information used to generate the trajectiories, and `datestamp` is the time the realization
+was generated."""
 type LogisticMap
     X::Vector{Float64}
     Y::Vector{Float64}
@@ -49,21 +52,29 @@ end
 Generate a trajectory of a bidirectionally coupled logistic map.
 
 The generated trajectory consists of two time series, X and Y, each `n_pts`
-points long, starting from initial condition (x₀, y₀). If not specified otherwise, the initial conditions are drawn according to `initdist`, which can be any Distributions.Distribution object. The default is  `initdist= Uniform(0.01, 0.99)`.
+points long, starting from initial condition (x₀, y₀). If not specified otherwise, the
+initial conditions are drawn according to `initdist`, which can be any
+Distributions.Distribution object. The default is  `initdist= Uniform(0.01, 0.99)`.
 
 The map is allowed to
 evolve for `n_transient` time steps before we start to sample. After the
 transient period is over, start sampling at every `stepsize`th iteration.
 
 The coupling strength is given by `αXonY` and `αYonX`, which measures the
-forcing strength of X on Y and the forcing strength of Y on X, in that order. If not specified otherwise, `αXonY` and `αYonX` are drawn from `αdist`, which can be any Distributions.Distribution object. The default is  `αdist= Uniform(0.05, 0.1)`.
+forcing strength of X on Y and the forcing strength of Y on X, in that order. If not
+specified otherwise, `αXonY` and `αYonX` are drawn from `αdist`, which can be any
+Distributions.Distribution object. The default is  `αdist= Uniform(0.05, 0.1)`.
 
-The parameters `μX` and `μY` appear in the individual dynamics of X and Y, respectively. If not specified otherwise, `μX` and `μY` are drawn from `μXdist` and `μYdist`, which both can be any Distributions.Distribution object. The defaults are `μXdist = Uniform(2, 4)` and `μYdist = Uniform(3.7, 3.9)`.
+The parameters `μX` and `μY` appear in the individual dynamics of X and Y, respectively.
+If not specified otherwise, `μX` and `μY` are drawn from `μXdist` and `μYdist`, which both
+can be any Distributions.Distribution object. The defaults are `μXdist = Uniform(2, 4)` and
+`μYdist = Uniform(3.7, 3.9)`.
 
 The `noise_frac` argument is the fraction of uniformly distributed noise relative to
 1 standard deviation of the data.
 
-If the model runs successfully given the chosen parameters, the function returns a LogisticMap object. If the model collapses, a NaN is returned.
+If the model runs successfully given the chosen parameters, the function returns a
+LogisticMap object. If the model collapses, a NaN is returned.
 """
 function logistic_map(;
     μXdist::Distributions.Distribution = Uniform(2, 4),

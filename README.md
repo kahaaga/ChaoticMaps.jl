@@ -1,1 +1,2 @@
 # ChaoticMaps
+# ChaoticMaps.jl

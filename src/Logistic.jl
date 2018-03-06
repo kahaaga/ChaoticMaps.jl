@@ -93,10 +93,11 @@ function logistic_map(;
     noise_frac::Float64 = 0.0,
     seed::Int = 1234)
 
-    X, Y = Vector{Float64}((n_pts*stepsize)+n_transient),
-            Vector{Float64}((n_pts*stepsize)+n_transient)
+    X, Y = Vector{Float64}((n_pts*stepsize) + n_transient),
+            Vector{Float64}((n_pts*stepsize) + n_transient)
     X[1] = x₀
     Y[1] = y₀
+
     # Run for `n_transient` steps, then start generating the map.
     for i = 2:n_transient+1
         X[i] = X[i-1] * (μX - μX*X[i-1] - αYonX*Y[i-1])
@@ -108,7 +109,7 @@ function logistic_map(;
         X[i] = X[i-1] * (μX - μX*X[i-1] - αYonX*Y[i-1])
         Y[i] = Y[i-1] * (μY - μY*Y[i-1] - αXonY*X[i-1])
     end
-    sample_inds = start_ind:stepsize:(n_pts*stepsize+(start_ind-1))
+
 	params = LogisticMapParams(
                 μXdist, μYdist, initdist, αdist,
                 x₀, y₀,
@@ -118,12 +119,12 @@ function logistic_map(;
                 reinterpret(Int32, Base.Random.GLOBAL_RNG.seed)
             )
 
-    # # If collapse, try again with different parameters
      if any(isnan, X) || any(isnan, Y)
         warn("Model collapsed. Returning NaN")
         return NaN
      end
 
+    sample_inds = start_ind:stepsize:(n_pts*stepsize + (start_ind - 1))
     if noise_frac > 0
         X_final = X[sample_inds]
         Y_final = Y[sample_inds]

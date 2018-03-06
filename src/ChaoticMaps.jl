@@ -1,5 +1,7 @@
 module ChaoticMaps
 
-# package code goes here
+include("Logistic.jl")
 
-end # module
+export Logistic
+
+end

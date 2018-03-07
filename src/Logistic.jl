@@ -2,7 +2,9 @@ module Logistic
 
 using Distributions
 
-""" Logistic map parameters. """
+"""
+Logistic map parameters.
+"""
 type LogisticMapParams
     μXdist::Distributions.Distribution
     μYdist::Distributions.Distribution
@@ -20,10 +22,12 @@ type LogisticMapParams
     seed::Any
 end
 
-""" Logistic map object. Holds a realization of the logistic map, given by the
+"""
+Logistic map object. Holds a realization of the logistic map, given by the
 `logistic_map()` function. `X` and `Y` are time series of trajectories, `params` holds the
 information used to generate the trajectiories, and `datestamp` is the time the realization
-was generated."""
+was generated.
+"""
 type LogisticMap
     X::Vector{Float64}
     Y::Vector{Float64}
@@ -120,8 +124,7 @@ function logistic_map(;
             )
 
      if any(isnan, X) || any(isnan, Y)
-        warn("Model collapsed. Returning NaN")
-        return NaN
+        error("Model collapsed")
      end
 
     sample_inds = start_ind:stepsize:(n_pts*stepsize + (start_ind - 1))
@@ -161,4 +164,9 @@ end
 
 # Trigger precompilation.
 l = logistic_sample_fixed_couplingstrength(0.1, 0.3, n_pts = 1000, noise_frac = 0.05)
+
+export LogisticMapParams,
+    LogisticMap,
+    logistic_map,
+    logistic_sample_fixed_couplingstrength
 end

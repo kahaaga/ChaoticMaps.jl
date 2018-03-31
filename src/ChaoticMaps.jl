@@ -17,8 +17,10 @@ export
 ##################################################################
 include("Logistic.jl")
 include("Rossler.jl")
+include("Lorenz.jl")
 
 export
     Logistic,
-    Rossler
+    Rossler,
+    Lorenz
 end

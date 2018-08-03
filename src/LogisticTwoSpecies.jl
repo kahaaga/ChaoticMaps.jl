@@ -100,9 +100,10 @@ function itermap(; p = Params(), info = MapInfo())
             X = X_final + noiseX,
             Y = Y_final + noiseY,
             params = p,
+            info = info,
             datestamp = now())
     else
-        return Map(X = X[sample_inds], Y = Y[sample_inds], params = p, datestamp = now())
+        return Map(X = X[sample_inds], Y = Y[sample_inds], params = p, info = info, datestamp = now())
     end
 end
 

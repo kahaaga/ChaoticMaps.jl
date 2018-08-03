@@ -1,7 +1,7 @@
 __precompile__(true)
 module ChaoticMaps
 
-using Reexport
+#using Reexport
 ########################################
 # Common structures used by all the maps.
 ########################################
